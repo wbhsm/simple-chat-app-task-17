@@ -18,7 +18,6 @@ ip=ip_address()
 port=9459
 s=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind((ip,port))
-print(ip)
 
 #Recieving Message
 def recv():

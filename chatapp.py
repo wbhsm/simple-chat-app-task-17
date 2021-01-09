@@ -1,9 +1,11 @@
 import threading
 import socket
-friend_name=input("Enter your friend's name: ")
+
+#Information
+name=input("Enter your friend's name: ")
 friend_ip=input("Enter your friend's IP: ")
 
-#getting host ip
+#Getting Host IP
 def ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
@@ -11,13 +13,14 @@ def ip_address():
     s.close()
     return ipv4
 
+#Starting UDP Socket
 ip=ip_address()
 port=9459
 s=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind((ip,port))
 print(ip)
 
-#recieving message
+#Recieving Message
 def recv():
     while True:
         x=s.recvfrom(1024)
@@ -26,13 +29,14 @@ def recv():
         if x[0].decode()=="exit":
             exit()
 
-#sending message
+#Sending Message
 def send():
     while True:
         text = input()
         print("You-> "+text)
         s.sendto(text.encode(),(friend_ip,9459))
 
+#Starting Thread
 re = threading.Thread(target=recv)
 se = threading.Thread(target=send)
 
